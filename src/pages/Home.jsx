@@ -28,9 +28,43 @@ import Diwd from "../assets/Diwd.jpg"
 import { BsGithub } from "react-icons/bs";
 import { BsLinkedin } from "react-icons/bs";
 import { BsInstagram } from "react-icons/bs";
+import ResumeModal from "../components/ResumeModal";
 export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
   const LETTERS = "ABCDE62^*@GHE*H1M({K`F`=-+QWFYJK];KOLP!KSAWSFGHHJ+";
   const [display, setDisplay] = useState("");
+  const [openResume, setOpenResume] = useState(false);
+  const [openCert, setOpenCert] = useState(false);
+  const [activeCert, setActiveCert] = useState(null);
+
+
+  const certificates = [
+    {
+      title: "Android Development Associate",
+      file: "/certificates/ADA.png",
+      preview: "/certificates/ADA.png",
+      type: "image",
+    },
+    {
+      title: "Project Integration Methodology of Exellence",
+      file: "/certificates/PRIME.png",
+      preview: "/certificates/PRIME.png",
+      type: "image",
+    },
+
+    {
+      title: "Pentest",
+      file: "/certificates/PENTEST.png",
+      preview: "/certificates/PENTEST.png",
+      type: "image",
+    },
+    {
+      title: "Proxocoris - Best Code Implementation",
+      file: "/certificates/BestCode.PNG",
+      preview: "/certificates/BestCode.PNG",
+      type: "image",
+    },
+  ];
+
 
   useEffect(() => {
     let iteration = 0;
@@ -87,13 +121,13 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
 
           footerRef.current.scrollIntoView({ behavior: "smooth" })
         }
-        } />
+        } onResumeClick={() => setOpenResume(true)} />
         <div className="flex flex-col col-span-2">
 
-          <div className="absolute top-1/3 left-1/6">
+          <div className="absolute top-1/3 left-1/6 flex flex-col gap-2 ">
 
-            <p className="text-6xl ">Hallo I'm 👋</p>
-            <h1 className="text-4xl font-bold tracking-wide font-Roboto-Mono my-4">
+            <p className="text-5xl ">Hallo I'm 👋</p>
+            <h1 className="text-5xl font-semibold ">
               {display}
             </h1>
             <motion.span
@@ -102,10 +136,10 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
               transition={{ duration: 2 }}
             >
               <div>
-                <p className=" text-shadow-2xs">
-                  <span className="font-semibold text-yellow-600 hover:text-yellow-500">
+                <p className=" text-xl">
+                  <span className="font-semibold text-blue-500">
                     Full Stack Web Developer
-                  </span> & <span className="font-semibold text-yellow-600 hover:text-yellow-500">
+                  </span> & <span className="font-semibold text-blue-500">
                     Mobile Developer
                   </span>
                 </p>
@@ -114,12 +148,12 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
           </div>
         </div>
         <a href="#footer"
-          className="hover:cursor-pointer bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-400 absolute bottom-1/3 left-1/6  ">Contact me</a>
+          className="hover:cursor-pointer bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-400 absolute bottom-1/4 left-1/6  ">Contact me</a>
         <div className="absolute right-0 bottom-0 w-[450px] overflow-hidden">
           <img
             src={Eo}
             alt=""
-            className="w-full translate-y-[80px]"
+            className="w-full translate-y-25"
           />
         </div>
 
@@ -128,7 +162,7 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
 
       <div id="about" className="px-10 py-24 text-gray-900 h-screen bg-white">
         <h2 className="text-4xl font-extrabold text-center mb-16 tracking-wide">
-          <span className="pb-2 border-b-4 border-yellow-500">ABOUT ME</span>
+          <span className="pb-2 border-b-4 border-yellow-500">About Me</span>
         </h2>
 
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -188,7 +222,7 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
 
       <div id="projects" className="px-10 py-16 bg-white text-gray-900">
         <h2 className="text-3xl font-extrabold text-center mb-12 tracking-wide">
-          <span className="pb-1 border-b-4 border-yellow-500">PROJECTS</span>
+          <span className="pb-1 border-b-2 border-yellow-500">Projects</span>
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -277,7 +311,48 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
         </div>
       </div>
 
-      <div id="contact" className="px-10 py-20 text-gray-900">
+      <div id="certificates" className="px-10 py-20  text-gray-900 bg-pw">
+        <h2 className="text-3xl font-extrabold text-center mb-12 tracking-wide">
+          <span className="pb-1 border-b-4 border-yellow-500">
+            Certificates
+          </span>
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mx-auto">
+          {certificates.map((cert, i) => (
+            <div
+              key={i}
+              onClick={() => {
+                setActiveCert(cert);
+                setOpenCert(true);
+              }}
+              className="cursor-pointer bg-white border rounded-lg shadow-sm
+                   hover:shadow-lg hover:-translate-y-1 transition-all"
+            >
+              <div className="h-48 bg-gray-100 flex items-center justify-center">
+                {cert.type === "image" ? (
+                  <img
+                    src={cert.preview}
+                    alt={cert.title}
+                    className="max-h-full object-contain"
+                  />
+                ) : (
+                  <p className="text-gray-500 font-medium">
+                    PDF Certificate
+                  </p>
+                )}
+              </div>
+
+              <div className="p-4 text-center">
+                <p className="font-semibold">{cert.title}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div id="contact" className="px-10 py-20 text-gray-900 bg-white">
         <h2 className="text-3xl font-extrabold text-center mb-12 tracking-wide">
           <span className="pb-1 border-b-4 border-yellow-500">CONTACT</span>
         </h2>
@@ -344,7 +419,7 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
 
       <footer
         id="footer"
-        className="relative bg-gray-950 text-gray-300 pt-16 pb-10"
+        className="relative bg-gray-900 text-gray-300 pt-16 pb-10"
       >
         {/* Top Curve */}
         <div className="absolute -top-10 left-0 w-full overflow-hidden leading-none rotate-180">
@@ -382,6 +457,7 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
               <li><a href="#about" className="hover:text-yellow-400 transition">About</a></li>
               <li><a href="#Tech Stack" className="hover:text-yellow-400 transition">Tech Stack</a></li>
               <li><a href="#projects" className="hover:text-yellow-400 transition">Projects</a></li>
+              <li><a href="#certificates" className="hover:text-yellow-400 transition">Certificates</a></li>
               <li><a href="#contact" className="hover:text-yellow-400 transition">Contact</a></li>
             </ul>
           </div>
@@ -396,7 +472,7 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
                 target="_blank"
                 className="w-11 h-11 rounded-xl bg-gray-800 border border-gray-700
                      flex items-center justify-center hover:border-yellow-500
-                     hover:bg-yellow-500 hover:text-black transition duration-300"
+                     hover:bg-white hover:text-black transition duration-300"
               >
                 <BsGithub />
                 <i className="fa-brands fa-github text-xl"></i>
@@ -408,7 +484,7 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
                 target="_blank"
                 className="w-11 h-11 rounded-xl bg-gray-800 border border-gray-700
                      flex items-center justify-center hover:border-yellow-500
-                     hover:bg-yellow-500 hover:text-black transition duration-300"
+                     hover:bg-blue-500 hover:text-white transition duration-300"
               >
                 <BsLinkedin />
                 <i className="fa-brands fa-linkedin-in text-xl"></i>
@@ -420,7 +496,7 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
                 target="_blank"
                 className="w-11 h-11 rounded-xl bg-gray-800 border border-gray-700
                      flex items-center justify-center hover:border-yellow-500
-                     hover:bg-yellow-500 hover:text-black transition duration-300"
+                     hover:bg-red-500 hover:text-white transition duration-300"
               >
                 <BsInstagram />
                 <i className="fa-brands fa-instagram text-xl"></i>
@@ -432,6 +508,39 @@ export default function Home({ text = "ESA KURNIAWAN PUTRA", speed = 100 }) {
           © {new Date().getFullYear()} Esa Kurniawan Putra — All Rights Reserved.
         </div>
       </footer>
+      <ResumeModal
+        isOpen={openResume}
+        onClose={() => setOpenResume(false)}
+      />
+
+      {openCert && activeCert && (
+        <div className="fixed inset-0 z-99 bg-black/80 flex items-center justify-center">
+          <div className="relative bg-white max-w-5xl w-[95%] h-[95%] rounded-xl overflow-hidden">
+
+            <button
+              onClick={() => setOpenCert(false)}
+              className="absolute top-4 right-4 z-10 bg-black text-white
+                   w-9 h-9 rounded-full flex items-center justify-center"
+            >
+              ✕
+            </button>
+
+            {activeCert.type === "image" ? (
+              <img
+                src={activeCert.file}
+                alt={activeCert.title}
+                className="w-full h-full object-contain bg-gray-200"
+              />
+            ) : (
+              <iframe
+                src={`${activeCert.file}#toolbar=0&navpanes=0&scrollbar=0`}
+                className="w-full h-full bg-gray-200"
+              />
+            )}
+          </div>
+        </div>
+      )}
+
 
     </div >
   );

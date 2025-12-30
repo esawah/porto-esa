@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const Navbar = ({ onContact }) => {
+const Navbar = ({ onResumeClick }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [showNavbar, setShowNavbar] = useState(true);
     const hideTimeoutRef = useRef(null);
+
 
     const scrollToSection = (id) => {
         const el = document.getElementById(id);
@@ -57,44 +58,45 @@ const Navbar = ({ onContact }) => {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                     className={`
-                        fixed w-full h-20 p-4 flex items-center z-50
+                        fixed w-full h-20 py-4 px-8 flex items-center z-50
                         ${isScrolled ? "bg-gray-700/40 backdrop-blur-md shadow-lg" : "bg-transparent"}
                     `}
                 >
 
-                    <p className={`text-2xl  ${isScrolled ? "text-white" : "text-black"}`}>
+                    <p className={` text-3xl font-semibold ${isScrolled ? "text-white" : "text-black"}`}>
                         Esa Kurniawan Putra
                     </p>
 
-
                     <div className='flex-1 z-10'>
-                        <ul className='flex flex-row-reverse items-center px-8'>
-                            <li onClick={() => scrollToSection("projects")} className={`relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${isScrolled ? "text-white" : "text-black"}`}>
+                        <div className='flex flex-row-reverse justify-center items-center text-md font-semibold gap-x-4'>
+                            <div onClick={() => scrollToSection("certificates")} className={`relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-0.5 after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${isScrolled ? "text-white" : "text-black"} hover:cursor-pointer`}>
+                                Certificates
+                            </div>
+                            <div onClick={() => scrollToSection("projects")} className={`relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-0.5 after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${isScrolled ? "text-white" : "text-black"} hover:cursor-pointer`}>
                                 Projects
-                            </li>
+                            </div>
 
-                            <li onClick={() => scrollToSection("Tech Stack")} className={`relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full  mr-4 ${isScrolled ? "text-white" : "text-black"}`}>
+                            <div onClick={() => scrollToSection("Tech Stack")} className={`relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-0.5 after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${isScrolled ? "text-white" : "text-black"} hover:cursor-pointer`}>
                                 Tech Stack
-                            </li>
+                            </div>
 
-                            <li onClick={() => scrollToSection("about")} className={`relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full mx-4 ${isScrolled ? "text-white" : "text-black"}`}>
+                            <div onClick={() => scrollToSection("about")} className={`relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-0.5 after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full  ${isScrolled ? "text-white" : "text-black"} hover:cursor-pointer`}>
                                 Aboute Me
-                            </li>
+                            </div>
 
-                            <li onClick={() => scrollToSection("home")} className={`relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${isScrolled ? "text-white" : "text-black"}`}>
+                            <div onClick={() => scrollToSection("home")} className={`relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-0.5 after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${isScrolled ? "text-white" : "text-black"}  hover:cursor-pointer`}>
                                 Home
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
 
-                    <a href="https://drive.google.com/drive/folders/1FGs81dBuuZ0Oq0BWtDpe4-Gq3M04D4Xs?usp=sharing" target='_blank'>
-                        <button
-                            className={`hover:cursor-pointer border-2 border-yellow-400 h-10 flex items-center justify-center 
-                        transform transition duration-300 ease-in-out hover:-translate-y-1 rounded-md z-20 px-2 ${isScrolled ? "text-white" : "text-black"}`}
-                        >
-                            My Resume
-                        </button>
-                    </a>
+
+                    <button onClick={onResumeClick}
+                        className={`hover:cursor-pointer border border-blue-600 flex items-center justify-center 
+                        transform transition duration-300 ease-in-out hover:-translate-y-1 rounded-md z-20 px-4 py-2 ${isScrolled ? "text-white bg-blue-600" : "text-black"} text-sm font-semibold`}
+                    >
+                        My Resume
+                    </button>
                 </motion.div>
             )}
         </AnimatePresence>
